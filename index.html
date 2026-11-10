@@ -10,7 +10,7 @@
 <meta property="og:title" content="Jackson Li">
 <meta property="og:description" content="Economics grad turning messy data into clear answers. M.S. in Business Analytics and AI at Baruch College.">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23101012'/%3E%3Ctext x='32' y='42' font-size='26' font-family='Helvetica,Arial,sans-serif' font-weight='600' text-anchor='middle' fill='%23efece0'%3EJ.L%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23101012'/%3E%3Ctext x='32' y='42' font-size='26' font-family='Helvetica,Arial,sans-serif' font-weight='600' text-anchor='middle' fill='%23efece0'%3EJ.L%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -48,7 +48,7 @@ h2{font-weight:400;text-transform:uppercase;font-size:28px;color:var(--ink);text
 .item{border-top:1px solid var(--line);padding:30px 0}
 .item:last-child{border-bottom:1px solid var(--line)}
 .item h3{margin:0;font-weight:500;font-size:22px;color:var(--ink);transition:transform .4s}
-.item:hover>h3{transform:translateX(10px)}
+.item:hover h3{transform:translateX(10px)}
 .meta{color:var(--muted);font-size:15px;margin:4px 0 8px}
 .item ul{margin:8px 0 0;padding-left:20px}
 .item li{margin-bottom:5px}
@@ -175,6 +175,86 @@ body{overflow-x:hidden}
 .links a{text-decoration:none}
 .links a:hover .arr{transform:translate(3px,-3px)}
 .top nav a,.links a{display:inline-block}
+
+/* ===== iridescent accent: blue → violet → pink ===== */
+:root{--a1:#3d5afe;--a2:#a94dff;--a3:#ff5c8a;--grad:linear-gradient(100deg,var(--a1),var(--a2),var(--a3))}
+::selection{background:var(--a2);color:#fff}
+
+/* gradient rules and stats */
+.title:before,.title:after,.sh:before,.sh:after{background:var(--grad)}
+.stats b{background:var(--grad) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shift 7s ease-in-out infinite alternate}
+@keyframes shift{to{background-position:100% 0}}
+
+/* charts */
+.fill,.brow:hover .fill{background:var(--grad) !important}
+.brow.dim .fill{opacity:.45;transition:width 1.3s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.brow.dim:hover .fill{opacity:1}
+.split i:first-child{background:var(--a1)}.split i:last-child{background:var(--a3)}
+
+/* links, chips, email */
+.vlink,.tog{background:var(--grad) 0 100%/0 1px no-repeat}
+.vlink:hover,.tog:hover{background-size:100% 1px}
+.mail{background:var(--grad) 0 100%/100% 2px no-repeat}
+.mail:hover{background-size:0 2px}
+.tags span{transition:color .3s,background .3s,border-color .3s}
+.tags span:hover{border-color:transparent;color:var(--ink);background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box}
+
+/* dark bands: cursor spotlight */
+.inv{position:relative}
+.inv>.wrap{position:relative;z-index:1}
+.inv:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s;
+  background:radial-gradient(460px circle at var(--sx,50%) var(--sy,30%),rgba(169,77,255,.2),rgba(61,90,254,.1) 45%,transparent 72%)}
+.inv:hover:before{opacity:1}
+
+@media(prefers-reduced-motion:reduce){.stats b{animation:none}}
+
+
+/* cursor ring */
+.cdot,.ring{position:fixed;left:0;top:0;z-index:90;pointer-events:none;mix-blend-mode:difference;display:none}
+.cdot{width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff;transition:opacity .2s}
+.ring{width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid #fff;border-radius:50%;align-items:center;justify-content:center;transition:width .35s,height .35s,margin .35s,background-color .35s,opacity .25s}
+.ring span{font:500 12px/1 Raleway,Helvetica,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#000;opacity:0;transition:opacity .25s}
+.ring.big{width:84px;height:84px;margin:-42px 0 0 -42px;background:#fff}
+.ring.card{width:64px;height:64px;margin:-32px 0 0 -32px;background:#fff}
+.ring.big span,.ring.card span{opacity:1}
+html.cx .cdot{display:block}html.cx .ring{display:flex}
+html.cx,html.cx *{cursor:none !important}
+
+/* terminal */
+.term{margin:24px 0 0;max-width:860px;padding:20px 22px;background:var(--card);border:1px solid var(--line);color:var(--text);font:400 13.5px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-x:auto;white-space:pre}
+.term .p,.term .m{color:var(--muted)}.term .o{color:var(--ink)}
+.term .res{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+.term .bl{display:inline-block;width:8px;height:1.05em;background:var(--ink);vertical-align:text-bottom;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* hero: name and bio; charts sit in their own band below */
+#home{display:flex;flex-direction:column;justify-content:center;align-items:stretch;max-width:1000px;padding:0 24px 30px}
+.mid{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.itemtop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:40px;align-items:center}
+.pscatter{position:relative;height:320px}
+#sc,#cc{position:absolute;inset:0;width:100%;height:100%}
+.cv{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.6s cubic-bezier(.2,.8,.2,1)}
+.cv.ax{stroke:var(--ink);stroke-opacity:.3;stroke-width:1}
+.draw .cv{stroke-dashoffset:0}
+.lb{font:500 15px Raleway,Helvetica,Arial,sans-serif;letter-spacing:.12em;fill:var(--muted);opacity:0;transition:opacity 1s 1.8s}
+.draw .lb{opacity:1}
+#cc{cursor:crosshair}
+.cmt{font:500 13px Raleway,Helvetica,Arial,sans-serif;letter-spacing:.04em;fill:var(--ink)}
+@media(max-width:900px){.itemtop{grid-template-columns:1fr;gap:24px}.pscatter{height:300px}}
+@media(prefers-reduced-motion:reduce){.cv,.lb{transition:none}}
+
+/* hero side waves (wide screens only) */
+#home{position:relative}
+.side{display:none;position:absolute;top:50%;translate:0 -50%;pointer-events:none;width:210px;height:150px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent)}
+@media(min-width:1300px){.side{display:block}}
+.sidel{left:calc(50% - 50vw + 24px)}
+.sider{right:calc(50% - 50vw + 24px)}
+.side svg{width:100%;height:100%;overflow:visible}
+.side path{fill:none;stroke:url(#wg);stroke-width:1.6;stroke-linecap:round;animation:wave 9s linear infinite;animation-delay:var(--d,0s);opacity:var(--o,1)}
+.sider path{animation-direction:reverse}
+@keyframes wave{to{transform:translateX(-100px)}}
+@media(prefers-reduced-motion:reduce){.side path{animation:none}}
 </style>
 </head>
 <body>
@@ -183,9 +263,13 @@ body{overflow-x:hidden}
   <div class="tr"><nav id="tnav"><a href="#projects">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav></div>
 </div>
 
+<div class="cdot" id="cdot"></div><div class="ring" id="ring"><span></span></div>
 <nav class="dots" aria-label="Sections"><a href="#home" title="Top" aria-label="Top"></a><a href="#projects" title="Work" aria-label="Work"></a><a href="#about" title="About" aria-label="About"></a><a href="#contact" title="Contact" aria-label="Contact"></a></nav>
 
 <div class="wrap" id="home">
+  <div class="side sidel" aria-hidden="true"><svg viewBox="0 0 200 120" preserveAspectRatio="none"><defs><linearGradient id="wg" x1="0" x2="1"><stop offset="0" stop-color="#3d5afe"/><stop offset=".5" stop-color="#a94dff"/><stop offset="1" stop-color="#ff5c8a"/></linearGradient></defs><g transform="translate(0 20) scale(1 0.7)"><path style="--d:0s;--o:0.35" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g><g transform="translate(0 40) scale(1 1)"><path style="--d:-1.5s;--o:0.6" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g><g transform="translate(0 60) scale(1 1.25)"><path style="--d:-3s;--o:1" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g><g transform="translate(0 80) scale(1 1)"><path style="--d:-4.5s;--o:0.6" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g><g transform="translate(0 100) scale(1 0.7)"><path style="--d:-6s;--o:0.35" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g></svg></div>
+  <div class="side sider" aria-hidden="true"><svg viewBox="0 0 200 120" preserveAspectRatio="none"><defs><linearGradient id="wg2" x1="0" x2="1"><stop offset="0" stop-color="#3d5afe"/><stop offset=".5" stop-color="#a94dff"/><stop offset="1" stop-color="#ff5c8a"/></linearGradient></defs><g transform="translate(0 20) scale(1 0.7)"><path style="--d:0s;--o:0.35" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g><g transform="translate(0 40) scale(1 1)"><path style="--d:-1.5s;--o:0.6" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g><g transform="translate(0 60) scale(1 1.25)"><path style="--d:-3s;--o:1" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g><g transform="translate(0 80) scale(1 1)"><path style="--d:-4.5s;--o:0.6" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g><g transform="translate(0 100) scale(1 0.7)"><path style="--d:-6s;--o:0.35" d="M0 0q25 -22 50 0t50 0t50 0t50 0t50 0t50 0"/></g></svg></div>
+  <div class="mid">
   <div class="head" id="head"><h1 class="title"><span class="l"><span>Jackson Li</span></span></h1></div>
   <section class="narrow">
     <p class="center fade">I’m an economics graduate from Hunter College, now pursuing an M.S. in Business Analytics and AI at Baruch College.</p>
@@ -197,6 +281,7 @@ body{overflow-x:hidden}
       <div><b data-count="2035" data-dec="0">2,035</b><span>sessions analyzed</span></div>
     </div>
   </section>
+  </div>
 </div>
 
 <div class="inv">
@@ -204,6 +289,7 @@ body{overflow-x:hidden}
   <section id="projects">
     <h2 class="sh"><span class="l"><span>Projects</span></span></h2>
     <div class="item fade fl">
+      <div class="itemtop"><div class="itext">
       <h3>Tutoring Center Attendance Analysis</h3>
       <div class="tags"><span>Python</span><span>pandas</span><span>matplotlib</span><span>Chi-square</span></div>
       <ul>
@@ -212,8 +298,11 @@ body{overflow-x:hidden}
       </ul>
       <div class="plinks">
         <button class="tog" aria-expanded="false" aria-controls="f1">see findings <span>+</span></button>
+        <button class="tog run" id="runbtn" aria-expanded="false" aria-controls="f3">run the analysis ▸</button>
         <a class="vlink" href="https://github.com/jackson-li-1/tutoring-attendance-analysis" target="_blank" rel="noopener">view on GitHub <span class="arr">→</span></a>
       </div>
+      </div><div class="pscatter" aria-hidden="true"><canvas id="sc"></canvas></div></div>
+      <div class="more" id="f3"><div class="moreinner"><pre class="term" id="term"></pre></div></div>
       <div class="more" id="f1"><div class="moreinner"><div class="charts">
         <div class="chart" data-base="79.3">
           <h4>Attendance by time slot</h4><p class="q">Percent of booked sessions attended</p>
@@ -232,6 +321,7 @@ body{overflow-x:hidden}
       </div></div></div>
     </div>
     <div class="item fade fr">
+      <div class="itemtop"><div class="itext">
       <h3>Northwind Sales Analysis</h3>
       <div class="tags"><span>SQL</span><span>Joins</span><span>CTEs</span><span>Window functions</span></div>
       <ul>
@@ -242,6 +332,16 @@ body{overflow-x:hidden}
         <button class="tog" aria-expanded="false" aria-controls="f2">see findings <span>+</span></button>
         <a class="vlink" href="https://github.com/jackson-li-1/northwind-sql-analysis" target="_blank" rel="noopener">view on GitHub <span class="arr">→</span></a>
       </div>
+      </div><div class="pscatter" aria-hidden="true">
+        <svg id="cc" viewBox="0 0 400 320">
+          <defs><linearGradient id="cg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#3d5afe"/><stop offset=".5" stop-color="#a94dff"/><stop offset="1" stop-color="#ff5c8a"/></linearGradient></defs>
+          <path class="cv ax" pathLength="1" d="M48 50V270H378"/>
+          <line x1="48" y1="270" x2="378" y2="50" stroke="#8d8a7e" stroke-opacity=".5" stroke-dasharray="3 5"/>
+          <path id="cp" class="cv" pathLength="1" stroke="url(#cg)"/>
+          <g class="lb" style="font-size:12px"><text x="48" y="292">0</text><text x="378" y="292" text-anchor="end">91 customers</text><text x="40" y="54" text-anchor="end">100%</text><text x="205" y="186" transform="rotate(-33.7 205 186)" text-anchor="middle">even split</text></g>
+          <g id="cm" class="lb"><line id="cmv" stroke="#8d8a7e" stroke-dasharray="4 5"/><line id="cmh" stroke="#8d8a7e" stroke-dasharray="4 5"/><circle id="cmc" r="6" fill="#a94dff"/><text id="cmt" class="cmt" x="62" y="68"></text></g>
+        </svg>
+      </div></div>
       <div class="more" id="f2"><div class="moreinner"><div class="charts">
         <div class="chart">
           <h4>Customer concentration</h4><p class="q">Share of total revenue (approximate)</p>
@@ -319,7 +419,7 @@ function onScroll(){
   var dd=id==='home'?'home':t;dots.forEach(function(a){a.classList.toggle('on',a.hash.slice(1)===dd)});
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
-document.querySelectorAll('.tog').forEach(function(b){b.addEventListener('click',function(){
+document.querySelectorAll('.tog:not(.run)').forEach(function(b){b.addEventListener('click',function(){
   var box=document.getElementById(b.getAttribute('aria-controls')),open=!box.classList.contains('open');
   box.classList.toggle('open',open);b.setAttribute('aria-expanded',open);
   b.firstChild.nodeValue=open?'hide findings ':'see findings ';
@@ -359,6 +459,149 @@ document.querySelectorAll('.brow').forEach(function(row){
   row.addEventListener('mouseleave',function(){tip.classList.remove('show')});
 });
 
+/* accent: spotlight in dark bands */
+if(!reduce){
+  document.querySelectorAll('.inv').forEach(function(el){
+    el.addEventListener('mousemove',function(e){
+      var r=el.getBoundingClientRect();
+      el.style.setProperty('--sx',(e.clientX-r.left)+'px');
+      el.style.setProperty('--sy',(e.clientY-r.top)+'px');
+    });
+  });
+}
+
+/* ===== cursor ring with labels ===== */
+(function(){
+if(!matchMedia('(hover:hover) and (pointer:fine)').matches||reduce)return;
+var html=document.documentElement,dot=document.getElementById('cdot'),ring=document.getElementById('ring'),lab=ring.firstElementChild,
+    mx=-100,my=-100,rx=-100,ry=-100,txt='';
+html.classList.add('cx');
+function setLabel(t){if(t!==txt){txt=t;lab.textContent=t}}
+addEventListener('mousemove',function(e){
+  mx=e.clientX;my=e.clientY;dot.style.transform='translate('+mx+'px,'+my+'px)';dot.style.opacity=1;ring.style.opacity=1;
+  var t=e.target,a=t.closest&&t.closest('a'),b=t.closest&&t.closest('button'),it=t.closest&&t.closest('.item'),mode='';
+  if(a){mode='big';setLabel(a.getAttribute('href').indexOf('mailto')===0?'email':(a.target==='_blank'?'open':'go'))}
+  else if(b){mode='big';setLabel(b.classList.contains('run')?'run':'toggle')}
+  else if(it){mode='card';setLabel('view')}
+  ring.className='ring'+(mode?' '+mode:'');dot.style.opacity=mode==='big'?0:1;
+});
+html.addEventListener('mouseleave',function(){dot.style.opacity=0;ring.style.opacity=0});
+(function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform='translate('+rx.toFixed(1)+'px,'+ry.toFixed(1)+'px)';requestAnimationFrame(loop)})();
+})();
+
+/* ===== "run the analysis" terminal ===== */
+(function(){
+var btn=document.getElementById('runbtn'),box=document.getElementById('f3'),term=document.getElementById('term'),tok=0,open=false;
+var script=[['m','# simulated replay of the analysis'],['c','import pandas as pd'],['c','from scipy.stats import chi2_contingency'],['c','df = pd.read_csv("sessions.csv")'],['c','len(df)'],['o','2035'],
+['c','table = pd.crosstab(df.time_slot, df.attended)'],['c','chi2, p, dof, exp = chi2_contingency(table)'],['c','df.groupby("time_slot").attended.mean().round(3)'],
+['o','time_slot\n12\u20131pm    0.829\n4\u20135pm     0.737\n7\u20138pm     0.664\n...'],['c','p < 0.001'],['o','True'],['r','\u2192 attendance depends on time slot: shift tutor capacity toward 12\u20133pm']];
+function sleep(ms){return new Promise(function(r){setTimeout(r,reduce?0:ms)})}
+async function play(){
+  var my=++tok;term.textContent='';var caret=document.createElement('span');caret.className='bl';
+  for(var i=0;i<script.length;i++){
+    if(my!==tok)return;
+    var k=script[i][0],text=script[i][1],line=document.createElement('div');term.appendChild(line);
+    if(k==='c'){
+      var pr=document.createElement('span');pr.className='p';pr.textContent='>>> ';line.appendChild(pr);
+      var ty=document.createElement('span');ty.className='o';line.appendChild(ty);line.appendChild(caret);
+      for(var j=1;j<=text.length;j++){if(my!==tok)return;ty.textContent=text.slice(0,j);await sleep(18)}
+      await sleep(260);
+    }else{
+      var sp=document.createElement('span');sp.className=k==='m'?'m':(k==='r'?'res':'o');sp.textContent=text;line.appendChild(sp);line.appendChild(caret);
+      await sleep(k==='m'?200:170);
+    }
+  }
+}
+btn.addEventListener('click',function(){
+  open=!open;box.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);
+  btn.textContent=open?'hide output \u00D7':'run the analysis \u25B8';
+  if(open)play();else tok++;
+});
+})();
+
+/* ===== scatter with live regression ===== */
+(function(){
+var cv=document.getElementById('sc'),hero=cv.parentNode,ctx=cv.getContext('2d'),mcx=-9999,mcy=-9999;
+var pts=[],N=60,cw=0,ch=0,dpr=1;
+function seed(){pts=[];for(var i=0;i<N;i++){var u=Math.random(),y=ch*(.82-.56*u)+(Math.random()-.5)*ch*.3;
+  pts.push({hx:cw*(.06+.88*u),hy:Math.max(ch*.1,Math.min(ch*.86,y)),dx:0,dy:0,vx:0,vy:0,ph:Math.random()*6.28,sp:.3+Math.random()*.5,r:2+Math.random()*2.4})}}
+function size(){var r=cv.getBoundingClientRect();dpr=Math.min(devicePixelRatio||1,2);cw=r.width;ch=r.height;cv.width=cw*dpr;cv.height=ch*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);seed();draw(0)}
+function draw(t){
+  ctx.clearRect(0,0,cw,ch);
+  var r=cv.getBoundingClientRect(),cx=mcx-r.left,cy=mcy-r.top,n=pts.length,sx=0,sy=0,sxx=0,sxy=0;
+  for(var i=0;i<n;i++){var q=pts[i];
+    var x=q.hx+(reduce?0:Math.sin(t/1000*q.sp+q.ph)*9)+q.dx,y=q.hy+(reduce?0:Math.cos(t/1000*q.sp*.9+q.ph)*9)+q.dy;
+    var ax=x-cx,ay=y-cy,d=Math.sqrt(ax*ax+ay*ay);
+    if(d<150&&d>.1){var f=(1-d/150)*1.5;q.vx+=ax/d*f;q.vy+=ay/d*f}
+    q.vx+=-q.dx*.03;q.vy+=-q.dy*.03;q.vx*=.88;q.vy*=.88;q.dx+=q.vx;q.dy+=q.vy;
+    sx+=x;sy+=y;sxx+=x*x;sxy+=x*y;
+    ctx.beginPath();ctx.arc(x,y,q.r,0,6.283);ctx.fillStyle='rgba(239,236,224,.35)';ctx.fill()}
+  var m=(n*sxy-sx*sy)/(n*sxx-sx*sx),b=(sy-m*sx)/n,x1=cw*.03,x2=cw*.97,g=ctx.createLinearGradient(x1,0,x2,0);
+  g.addColorStop(0,'#3d5afe');g.addColorStop(.5,'#a94dff');g.addColorStop(1,'#ff5c8a');
+  ctx.beginPath();ctx.moveTo(x1,m*x1+b);ctx.lineTo(x2,m*x2+b);ctx.strokeStyle=g;ctx.lineWidth=2.2;ctx.stroke();
+  ctx.font='500 13px Raleway,Helvetica,Arial,sans-serif';ctx.textAlign='right';ctx.fillStyle='#8d8a7e';
+  ctx.fillText('\u03B2\u0302 = '+(-m).toFixed(2),x2,m*x2+b-12);
+}
+var vis=false;
+new IntersectionObserver(function(es){vis=es[0].isIntersecting},{threshold:.1}).observe(hero);
+if(window.ResizeObserver)new ResizeObserver(size).observe(hero);else{addEventListener('resize',size);size()}
+if(!reduce){
+  addEventListener('mousemove',function(e){mcx=e.clientX;mcy=e.clientY});
+  (function loop(t){if(!document.hidden&&vis&&cw>20)draw(t);requestAnimationFrame(loop)})(0);
+}
+})();
+
+/* ===== customer concentration curve (approximate) ===== */
+(function(){
+var svg=document.getElementById('cc'),NS='http://www.w3.org/2000/svg',X0=48,W=330,YB=270,H=220,T=91;
+/* known: top 3 = 25%, top 10 = 45%; ends at 0 and 100%. Monotone cubic fills between. */
+var xs=[0,3,10,T],ys=[0,25,45,100],n=xs.length,h=[],dl=[],m=[],k,i;
+for(k=0;k<n-1;k++){h[k]=xs[k+1]-xs[k];dl[k]=(ys[k+1]-ys[k])/h[k]}
+m[0]=dl[0];m[n-1]=dl[n-2];
+for(k=1;k<n-1;k++){var w1=2*h[k]+h[k-1],w2=h[k]+2*h[k-1];m[k]=(w1+w2)/(w1/dl[k-1]+w2/dl[k])}
+function f(x){var j=0;while(j<n-2&&x>xs[j+1])j++;var t=(x-xs[j])/h[j],t2=t*t,t3=t2*t;
+  return (2*t3-3*t2+1)*ys[j]+(t3-2*t2+t)*h[j]*m[j]+(-2*t3+3*t2)*ys[j+1]+(t3-t2)*h[j]*m[j+1]}
+function px(c){return X0+c/T*W}function py(v){return YB-v/100*H}
+var d='';for(i=0;i<=T;i++)d+=(i?'L':'M')+px(i).toFixed(1)+' '+py(f(i)).toFixed(1);
+document.getElementById('cp').setAttribute('d',d);
+[3,10].forEach(function(c){var a=document.createElementNS(NS,'circle');a.setAttribute('cx',px(c));a.setAttribute('cy',py(f(c)));a.setAttribute('r',3.5);a.setAttribute('fill','#efece0');a.setAttribute('class','lb');svg.insertBefore(a,document.getElementById('cm'))});
+var cmv=document.getElementById('cmv'),cmh=document.getElementById('cmh'),cmc=document.getElementById('cmc'),cmt=document.getElementById('cmt');
+function show(c,smooth){c=Math.max(0,Math.min(T,smooth?c:Math.round(c)));var v=f(c),x=px(c),y=py(v),rc=Math.round(c);
+  cmc.setAttribute('cx',x);cmc.setAttribute('cy',y);
+  cmv.setAttribute('x1',x);cmv.setAttribute('x2',x);cmv.setAttribute('y1',y);cmv.setAttribute('y2',YB);
+  cmh.setAttribute('x1',X0);cmh.setAttribute('x2',x);cmh.setAttribute('y1',y);cmh.setAttribute('y2',y);
+  cmt.textContent='top '+rc+' customer'+(rc===1?'':'s')+' \u2248 '+Math.round(v)+'% of revenue'}
+show(3);
+/* drifting "customer" dots that ride the curve, like the scatter */
+var dg=document.createElementNS(NS,'g');dg.setAttribute('class','lb');
+var dots=[];
+for(i=0;i<60;i++){var c0=(i+.5)*T/60,e=document.createElementNS(NS,'circle');
+  e.setAttribute('r',(1.6+Math.random()*1.4).toFixed(2));e.setAttribute('fill','#efece0');e.setAttribute('fill-opacity','.4');dg.appendChild(e);
+  dots.push({e:e,hx:px(c0),hy:py(f(c0)),dx:0,dy:0,vx:0,vy:0,ph:Math.random()*6.28,sp:.3+Math.random()*.5})}
+svg.insertBefore(dg,document.getElementById('cm'));
+var mx=null,my=null,hover=false,sc=3,dir=1,vis=false,last=0;
+svg.addEventListener('pointermove',function(e){var p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;
+  var q=p.matrixTransform(svg.getScreenCTM().inverse());mx=q.x;my=q.y;hover=true;
+  sc=Math.max(0,Math.min(T,Math.round((q.x-X0)/W*T)));show(sc)});
+svg.addEventListener('pointerleave',function(){mx=my=null;hover=false});
+if(reduce){svg.classList.add('draw')}
+else{
+  new IntersectionObserver(function(es){es.forEach(function(e){vis=e.isIntersecting;svg.classList.toggle('draw',vis)})},{threshold:.25}).observe(svg.parentNode);
+  requestAnimationFrame(function tick(t){
+    var dt=Math.min((t-last)/1000,.05);last=t;
+    if(vis&&!document.hidden){
+      /* idle: marker sweeps back and forth along the curve */
+      if(!hover){sc+=dir*dt*9;if(sc>=T){sc=T;dir=-1}else if(sc<=0){sc=0;dir=1}show(sc,true)}
+      for(var j=0;j<dots.length;j++){var q=dots[j],
+        x=q.hx+Math.sin(t/1000*q.sp+q.ph)*5+q.dx,y=q.hy+Math.cos(t/1000*q.sp*.9+q.ph)*5+q.dy;
+        if(mx!==null){var ax=x-mx,ay=y-my,d=Math.sqrt(ax*ax+ay*ay);
+          if(d<50&&d>.1){var fo=(1-d/50)*.9;q.vx+=ax/d*fo;q.vy+=ay/d*fo}}
+        q.vx+=-q.dx*.03;q.vy+=-q.dy*.03;q.vx*=.88;q.vy*=.88;q.dx+=q.vx;q.dy+=q.vy;
+        q.e.setAttribute('cx',x.toFixed(1));q.e.setAttribute('cy',y.toFixed(1))}
+    }
+    requestAnimationFrame(tick)});
+}
+})();
 </script>
 </body>
 </html>
